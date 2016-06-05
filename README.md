@@ -15,7 +15,7 @@ Dalam pengembangan web ini terdapat requirement, yaitu:
 
 ##Installasi
 1. Download aplikasi ini atau bisa langsung clone repo ini ke local.
-2. Extract lalu pindahkan folder `dikti` ke folder htdocs (kalau pakai XAMPP).
+2. Extract lalu pindahkan folder `pddikti` ke folder htdocs (kalau pakai XAMPP). Rename folder `pddikti` menjadi `dikti`.
 3. Buatlah database dengan nama `dbpdpt10`.
 4. Import file `dbpdpt10.sql` yang ada dalam folder `database/`
 5. Terakhir buka url di browser, yaitu http://localhost/dikti/.
