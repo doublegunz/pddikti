@@ -1,24 +1,19 @@
-Tugas UAS semester 3 Mata Kuliah Pemrograman Web 2
-===================================================
-Aplikasi Web Pangkalan Data Pendidikan Tinggi untuk Universitas Swasta Tangerang
-================================================================================
+# PDDIKTI WEB APP
+PDDIKTI WEB APP adalah Aplikasi web Pangkalan Data Pendidikan Tinggi (PDDIKTI) untuk salah satu Universitas Swasta di kota Tangerang. Aplikasi ini dikembangkan untuk memenuhi tugas UAS Semester 3 Mata Kuliah Pemrograman Web 2. PDDIKTI WEB APP dibuat menggunakan Framework CodeIgniter v.3, sesuai dengan spesifikasi project yang tertera dalam tugas UAS Mata Kuliah Pemrograman Web 2. Fungsi aplikasi ini adalah untuk pengelolaan data mahasiswa untuk PDDIKTI di salah satu universitas ternama di kota tangerang.
 
-## Pengenalan Aplikasi
-Aplikasi ini adalah Aplikasi Web Pangkalan Data Pendidikan Tinggi untuk Universitas Swasta Tangerang. Aplikasi ini dibuat untuk memenuhi tugas UAS Semester 3 Mata Kuliah Pemrograman Web 2. Dibuat menggunakan Framework CodeIgniter, sesuai dengan soal dalam tugas UAS Mata Kuliah Pemrograman Web 2. Fungsi aplikasi ini adalah untuk pengelolaan data mahasiswa untuk PDPT di universitas ternama di kota tangerang.
+## Getting Started
+Aplikasi ini dapat diinstall dengan spesikasi berikut ini:
+#### Spesifikasi minimum server
+1. PHP >= 5.5
+2. MySQLi
+3. HTTP Server, misal NginX or Apache.
 
-## Requirements
-Dalam pengembangan web ini terdapat requirement, yaitu:
-1. PHP 5.5 keatas.
-2. CodeIgniter 3.0.6
-3. MySQLi
-4. HTTP Server, misal NginX or Apache.
-
-## Installasi
-1. Download aplikasi ini atau bisa langsung clone repo ini ke local.
-2. Extract lalu pindahkan folder `pddikti` ke folder htdocs (kalau pakai XAMPP). Rename folder `pddikti` menjadi `dikti`.
-3. Buatlah database dengan nama `dbpdpt10`.
-4. Import file `dbpdpt10.sql` yang ada dalam folder `database/`
-5. Terakhir buka url di browser, yaitu http://localhost/dikti/.
+#### Installasi
+1. Clone repo ini: `git clone https://github.com/doublegunz/pddikti.git`
+2. Buat database baru dengan nama `dbpdpt10`.
+3. Import file `dbpdpt10.sql` yang ada dalam folder `database/` ke database `dbpdpt10`.
+4. Set credentials database di file `application/config/database.php`
+5. Terakhir buka url di browser, yaitu [http://localhost/pddikti/](http://localhost/pddikti/).
 
 ## License
-I believe that open source software should be free for everyone and non restrictive. My code is based on a completely free to use open source file format which I did not invent. I will choose MIT since it seems to be the least restrictive license out there.
+PDDIKTI WEB APP free dan open-source di bawah [MIT license](https://github.com/doublegunz/pddikti/blob/master/LICENSE.md).
