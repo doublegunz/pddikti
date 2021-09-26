@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.5.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 30 Apr 2016 pada 11.27
--- Versi Server: 10.1.10-MariaDB
--- PHP Version: 5.6.19
+-- Host: localhost
+-- Generation Time: Sep 26, 2021 at 04:32 
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `berita`
+-- Table structure for table `berita`
 --
 
 CREATE TABLE `berita` (
@@ -38,7 +38,7 @@ CREATE TABLE `berita` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `berita`
+-- Dumping data for table `berita`
 --
 
 INSERT INTO `berita` (`id_berita`, `judul`, `slug`, `isi`, `status_berita`, `id_user`, `tanggal`, `nama`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `berita` (`id_berita`, `judul`, `slug`, `isi`, `status_berita`, `id_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_akademik`
+-- Table structure for table `data_akademik`
 --
 
 CREATE TABLE `data_akademik` (
@@ -68,18 +68,10 @@ CREATE TABLE `data_akademik` (
   `asal_sekolah_sebelum_kuliah` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `data_akademik`
---
-
-INSERT INTO `data_akademik` (`id`, `npm`, `program_studi`, `kelas`, `dosen_wali`, `tanggal_awal_kuliah`, `tanggal_sidang_skripsi`, `waktu_tempuh_menyelesaikan_kuliah_dalam_tahun`, `waktu_tempuh_menyelesaikan_kuliah_dalam_bulan`, `waktu_tempuh_menyelesaikan_kuliah_dalam_hari`, `prestasi_akademik`, `prestasi_non_akademik`, `ipk`, `asal_sekolah_sebelum_kuliah`) VALUES
-(1, '14120001', 'Administrasi Bisnis', 'reguler', 'Astri', '2014-09-22', '0000-00-00', '0', '0', '0', '-', '-	', '', 'SMA Negeri 3 Sukabumi'),
-(2, '14120013', 'Teknik Informatika', 'reguler', 'Winda', '2011-09-20', '2015-03-20', '3.49', '42.5', '1277', '-						', 'Menguasai Bahasa Pemrograman PHP, C++ dan Java.\r\nMenguasai Framework CodeIgniter, Laravel dan YII.\r\nMenguasai HTML, Javascript, JQUERY dan AJAX									', '400', 'SMK Negeri 1 Kota Sukabumi');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_ayah`
+-- Table structure for table `data_ayah`
 --
 
 CREATE TABLE `data_ayah` (
@@ -101,18 +93,10 @@ CREATE TABLE `data_ayah` (
   `npm` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `data_ayah`
---
-
-INSERT INTO `data_ayah` (`id`, `nama_ayah`, `tempat_lahir`, `tanggal_lahir`, `pendidikan`, `pekerjaan`, `penghasilan_per_bulan`, `alamat_rumah`, `alamat_desa`, `alamat_kelurahan`, `alamat_kecamatan`, `alamat_kabupaten`, `kode_pos`, `telepon_rumah`, `telepon_genggam`, `npm`) VALUES
-(1, 'Achmad Taufiqoerrochman', 'Sukabumi', '1961-10-18', 'S1', 'TNI', 50000000, 'Jalan Bhayangkara No 137 A', '-', 'Karamat', 'Gunungpuyuh', 'Sukabumi', '43122', '-', '-', '14120001'),
-(2, 'Agus Supriatna', 'Ciamis', '1955-08-23', 'SD', 'pedagang', 500000, 'Jalan Ciaul Pasir No 10 RT 01 RW 12', 'Cisarua', '-', 'Cikole', 'Sukabumi', '43115', '-', '-', '14120013');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_foto`
+-- Table structure for table `data_foto`
 --
 
 CREATE TABLE `data_foto` (
@@ -121,19 +105,10 @@ CREATE TABLE `data_foto` (
   `scan_foto` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `data_foto`
---
-
-INSERT INTO `data_foto` (`id`, `npm`, `scan_foto`) VALUES
-(1, '14120001', 'foto_14120001.jpg'),
-(2, '14120002', 'foto_14120002.jpg'),
-(3, '14120013', 'foto_141200131.jpg');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_ibu`
+-- Table structure for table `data_ibu`
 --
 
 CREATE TABLE `data_ibu` (
@@ -155,18 +130,10 @@ CREATE TABLE `data_ibu` (
   `npm` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `data_ibu`
---
-
-INSERT INTO `data_ibu` (`id`, `nama_ibu`, `tempat_lahir`, `tanggal_lahir`, `pendidikan`, `pekerjaan`, `penghasilan_per_bulan`, `alamat_rumah`, `alamat_desa`, `alamat_kelurahan`, `alamat_kecamatan`, `alamat_kabupaten`, `kode_pos`, `telepon_rumah`, `telepon_genggam`, `npm`) VALUES
-(1, 'Ina Dwianasari', 'Sukabumi', '1966-10-21', 'S1', 'Guru', 10000000, 'Jalan Bhayangkara No 137 A', '-', 'Karamat', 'Gunungpuyuh', 'Sukabumi', '43122', '-', '-', '14120001'),
-(2, 'Surtini', 'Sukabumi', '1958-09-23', 'SD', 'lainnya', 0, 'Jalan Ciaul Pasir No 10 RT 01 RW 12', 'Cisarua', '-', 'Cikole', 'Sukabumi', '43115', '-', '-', '14120013');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_kk`
+-- Table structure for table `data_kk`
 --
 
 CREATE TABLE `data_kk` (
@@ -175,18 +142,10 @@ CREATE TABLE `data_kk` (
   `scan_kartu_keluarga` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `data_kk`
---
-
-INSERT INTO `data_kk` (`id`, `npm`, `scan_kartu_keluarga`) VALUES
-(1, '14120001', 'kk_14120001.jpg'),
-(2, '14120013', 'kk_14120013.jpg');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_ktm`
+-- Table structure for table `data_ktm`
 --
 
 CREATE TABLE `data_ktm` (
@@ -195,18 +154,10 @@ CREATE TABLE `data_ktm` (
   `scan_ktm` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `data_ktm`
---
-
-INSERT INTO `data_ktm` (`id`, `npm`, `scan_ktm`) VALUES
-(1, '14120001', 'ktm_14120001.jpg'),
-(2, '14120013', 'ktm_14120013.jpg');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_ktp`
+-- Table structure for table `data_ktp`
 --
 
 CREATE TABLE `data_ktp` (
@@ -215,18 +166,10 @@ CREATE TABLE `data_ktp` (
   `scan_ktp` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `data_ktp`
---
-
-INSERT INTO `data_ktp` (`id`, `npm`, `scan_ktp`) VALUES
-(1, '14120001', 'ktp_14120001.jpg'),
-(2, '14120013', 'ktp_14120013.jpg');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_mhs`
+-- Table structure for table `data_mhs`
 --
 
 CREATE TABLE `data_mhs` (
@@ -252,30 +195,10 @@ CREATE TABLE `data_mhs` (
   `tipe_tempat_tinggal` enum('rumah orang tua','kost','wali','asrama','lainnya') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `data_mhs`
---
-
-INSERT INTO `data_mhs` (`id`, `npm`, `nama_mahasiswa`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `nomor_ktp`, `alamat_rumah`, `alamat_desa`, `alamat_kelurahan`, `alamat_kecamatan`, `alamat_kabupaten`, `kode_pos`, `telepon_rumah`, `telepon_genggam`, `email`, `nama_penerima_kps`, `nomor_penerima_kps`, `tipe_tempat_tinggal`) VALUES
-(1, '14120001', 'Nadia Rizky', 'Sukabumi', '1996-06-09', 'P', 'Islam', '32900019910609', 'Jalan Bhayangkara No 137 A', '-', 'Karamat', 'Gunungpuyuh', 'Sukabumi', '43122', '-', '-', 'nadiaadik@gmail.com', '-', '-', 'rumah orang tua'),
-(2, '14120002', 'Erna Mariana Dewi', 'Bandung', '1996-02-19', 'P', 'Islam', '32900019960219', 'Jalan Ciganitri No 41 RT 06 RW 05', 'Cipagolo', '-', 'Bojongsoang', 'Bandung', '43122', '-', '085659593939', 'mariana_dewi@gmail.com', '-', '-', 'kost'),
-(3, '14120003', 'Budi Kusuma', 'Sukabumi', '1996-08-06', 'L', 'Islam', '32900019960806', 'Perum Griya serpong asri blok d2 no 20', '-', 'Suradita', 'Cisauk', 'Tangerang', '15343', '-', '085694007823', 'aboedi_kusuma@gmail.com', '-', '-', 'rumah orang tua'),
-(4, '14120004', 'Sonya Luvita', 'Sukabumi', '1996-03-23', 'P', 'Islam', '32900019960323', 'Jalan Bhayangkara No 136 A', '-', 'Karamat', 'Gunungpuyuh', 'Sukabumi', '43122', '-', '-', 'luvita.sonya@gmail.com', '-', '-', 'rumah orang tua'),
-(5, '14120005', 'Ayu Lestari Saputri', 'Sukabumi', '1996-09-03', 'P', 'Islam', '32900019960903', 'Jalan Bhayangkara No 130 A', '-', 'Karamat', 'Gunungpuyuh', 'Sukabumi', '43122', '-', '-', 'ayu.lestari@gmail.com', '-', '-', 'rumah orang tua'),
-(6, '14120006', 'Khresna Bima Saputra', 'Sukabumi', '1996-06-29', 'L', 'Islam', '32900019960629', 'Jalan Ciaul Pasir No 23', 'Cisarua', '-', 'Cikole', 'Sukabumi', '43115', '-', '085659480584', 'khresna.bima@gmail.com', '-', '-', 'rumah orang tua'),
-(7, '14120007', 'Ernawan Supriadi', 'Sukabumi', '1996-06-18', 'L', 'Islam', '32900019960618', 'Jalan Samsi No 12', 'Cisarua', '-', 'Cikole', 'Sukabumi', '43115', '-', '08568967569', 'ernawan.supriadi@gmail.com', '-', '-', 'rumah orang tua'),
-(8, '14120008', 'Aa Solihin Dolar', 'Sukabumi', '1996-09-19', 'L', 'Islam', '32900019910919', 'Jalan Bhayangkara No 130 A', '-', 'Karamat', 'Gunungpuyuh', 'Sukabumi', '43122', '-', '085793985877', 'aa.solihin@gmail.com', '-', '-', 'kost'),
-(9, '14120009', 'Nadia Debbie Pratiwi', 'Sukabumi', '1996-02-28', 'P', 'Islam', '32900019910228', 'Jalan Bhayangkara No 132', '-', 'Karamat', 'Gunungpuyuh', 'Sukabumi', '43122', '-', '085627278273', 'nadia.debbie@gmail.com', '-', '-', 'kost'),
-(10, '14120010', 'Linda Nurma Shinta', 'Bekasi', '1996-08-26', 'P', 'Islam', '32900019960826', 'Jalan Ciaul Pasir No 24', 'Cisarua', 'Karamat', 'Gunungpuyuh', 'Sukabumi', '43115', '-', '-', 'linda.nurma@gmail.com', '-', '-', 'rumah orang tua'),
-(11, '14120011', 'Puteri Prehatini Pamungkas', 'Sukabumi', '1996-12-18', 'P', 'Islam', '32900019961218', 'Jalan Ciaul Pasir No 25', 'Cisarua', '-', 'Cikole', 'Sukabumi', '43115', '-', '-', 'puteri.prehatini@gmail.com', '-', '-', 'rumah orang tua'),
-(12, '14120012', 'Robby Janiar Ibnu Sholeh', 'Sukabumi', '1996-06-14', 'L', 'Islam', '32900019960614', 'Jalan Ciaul Pasir No 26', 'Cisarua', '-', 'Cikole', 'Sukabumi', '43115', '-', '-', 'robby.janiar@gmail.com', '-', '-', 'rumah orang tua'),
-(13, '14120013', 'Gun Gun Priatna', 'Sukabumi', '1992-02-29', 'L', 'Islam', '32900019920229', 'Jalan Ciaul Pasir No 10 RT 01 RW 12', 'Cisarua', '-', 'Cikole', 'Sukabumi', '43115', '-', '-', 'gungunpriatna@gmail.com', '-', '-', 'rumah orang tua'),
-(14, '11111111', 'Nadia Luffy Khaerunnisa', 'Sukabumi', '1992-02-29', 'P', 'Islam', '1122345', 'jalan ciaul', 'Cisarua', '-', 'Cikole', 'Sukabumi', '43115', '0266222272', '-', 'nadialuffy@gmail.com', '-', '-', 'rumah orang tua');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_wali`
+-- Table structure for table `data_wali`
 --
 
 CREATE TABLE `data_wali` (
@@ -300,7 +223,7 @@ CREATE TABLE `data_wali` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `dokumen`
+-- Table structure for table `dokumen`
 --
 
 CREATE TABLE `dokumen` (
@@ -309,7 +232,7 @@ CREATE TABLE `dokumen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `dokumen`
+-- Dumping data for table `dokumen`
 --
 
 INSERT INTO `dokumen` (`id`, `nama_dokumen`) VALUES
@@ -318,7 +241,7 @@ INSERT INTO `dokumen` (`id`, `nama_dokumen`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `hak_akses`
+-- Table structure for table `hak_akses`
 --
 
 CREATE TABLE `hak_akses` (
@@ -328,30 +251,16 @@ CREATE TABLE `hak_akses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `hak_akses`
+-- Dumping data for table `hak_akses`
 --
 
 INSERT INTO `hak_akses` (`id`, `username`, `hak_akses`) VALUES
-(1, 'admin', 'admin'),
-(2, '14120001', 'user'),
-(3, '14120002', 'user'),
-(4, '14120003', 'user'),
-(5, '14120004', 'user'),
-(6, '14120005', 'user'),
-(7, '14120006', 'user'),
-(8, '14120007', 'user'),
-(9, '14120008', 'user'),
-(10, '14120009', 'user'),
-(11, '14120010', 'user'),
-(12, '14120011', 'user'),
-(13, '14120012', 'user'),
-(14, '14120013', 'user'),
-(15, '11111111', 'user');
+(1, 'admin', 'admin');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `login`
+-- Table structure for table `login`
 --
 
 CREATE TABLE `login` (
@@ -362,25 +271,11 @@ CREATE TABLE `login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `login`
+-- Dumping data for table `login`
 --
 
 INSERT INTO `login` (`id`, `username`, `userpassword`, `useremail`) VALUES
-(1, 'admin', 'e172dd95f4feb21412a692e73929961e', 'admin@pdpt.com'),
-(2, '14120001', 'ef344be5a8ece059edc2bd8a63d0092f', 'nadiaadik@gmail.com'),
-(3, '14120002', 'ef344be5a8ece059edc2bd8a63d0092f', 'mariana_dewi@gmail.com'),
-(4, '14120003', '653a6aaa2c5d92ce323187d7764dc112', 'aboedi_kusuma@gmail.com'),
-(5, '14120004', 'ef344be5a8ece059edc2bd8a63d0092f', 'luvita.sonya@gmail.com'),
-(6, '14120005', 'ef344be5a8ece059edc2bd8a63d0092f', 'ayu.lestari@gmail.com'),
-(7, '14120006', '653a6aaa2c5d92ce323187d7764dc112', 'khresna.bima@gmail.com'),
-(8, '14120007', '653a6aaa2c5d92ce323187d7764dc112', 'ernawan.supriadi@gmail.com'),
-(9, '14120008', '653a6aaa2c5d92ce323187d7764dc112', 'aa.solihin@gmail.com'),
-(10, '14120009', 'ef344be5a8ece059edc2bd8a63d0092f', 'nadia.debbie@gmail.com'),
-(11, '14120010', 'ef344be5a8ece059edc2bd8a63d0092f', 'linda.nurma@gmail.com'),
-(12, '14120011', 'ef344be5a8ece059edc2bd8a63d0092f', 'puteri.prehatini@gmail.com'),
-(13, '14120012', '653a6aaa2c5d92ce323187d7764dc112', 'robby.janiar@gmail.com'),
-(14, '14120013', '653a6aaa2c5d92ce323187d7764dc112', 'gungunpriatna@gmail.com'),
-(15, '11111111', 'e172dd95f4feb21412a692e73929961e', 'nadialuffy@gmail.com');
+(1, 'admin', '5ebe2294ecd0e0f08eab7690d2a6ee69', 'admin@pdpt.com');
 
 --
 -- Indexes for dumped tables
