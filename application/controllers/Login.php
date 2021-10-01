@@ -77,13 +77,19 @@ class Login extends CI_Controller
     {
         $username = $this->input->post('username');
         $email = $this->input->post('email');
-        $ex['i'] = $this->login_model->cek_email($username, $email);
-        $r = $ex['i']->row();
+        $get_data = $this->login_model
+			->cek_email($username, $email)
+			->row();
         
-        if ($r == 1) {
-            $res = array(	'n'=>$r->username,
-                            'email'=>$r->useremail);
-            $this->session->set_userdata($res);
+        if ($get_data) {
+
+            $session_data = [
+				'username' => $get_data->username,
+				'email' => $get_data->useremail
+			];
+
+            $this->session->set_userdata($session_data);
+
             redirect('login/reset_password');
         } else {
             $this->lupa_password();
@@ -100,15 +106,20 @@ class Login extends CI_Controller
         if ($this->form_validation->run() === false) {
             $this->load->view('home/form_reset_password');
         } else {
-            $npm = $this->session->userdata('n');
+            $npm = $this->session->userdata('username');
             $email = $this->session->userdata('email');
+			$password = $this->input->post('password');
 
-            $data_user = array(
-                        'userpassword'	=> md5($this->input->post('password'))
-                    );
-            $kondisi['username'] = $npm;
-            $kondisi['useremail'] = $email;
-            $this->login_model->reset_password($data_user, $kondisi);
+            $data_user = [
+				'userpassword' => password_hash($password, PASSWORD_BCRYPT)
+			];
+
+			$condition = [
+				'username' => $npm,
+				'useremail' => $email
+			];
+
+            $this->login_model->reset_password($data_user, $condition);
             $this->session->sess_destroy();
             
             $this->load->view('home/berhasil');
