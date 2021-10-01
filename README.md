@@ -14,6 +14,7 @@ Aplikasi ini dapat diinstall dengan spesikasi berikut ini:
 3. Import file `dbpdpt10.sql` yang ada dalam folder `database/` ke database `dbpdpt10`.
 4. Set credentials database di file `application/config/database.php`
 5. Terakhir buka url di browser, yaitu [http://localhost/pddikti/](http://localhost/pddikti/).
+6. Kamu bisa coba login ke halaman admin dengan menggunakan default credentials username: `admin` dan password `secret`.
 
 ## License
 PDDIKTI WEB APP free dan open-source di bawah [MIT license](https://github.com/doublegunz/pddikti/blob/master/LICENSE.md).
