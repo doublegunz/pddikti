@@ -41,5 +41,11 @@ class Login_model extends CI_Model {
 		return $this->db->get('login');
 		
 	}
+
+	public function get_user($username)
+	{
+		$this->db->where('username', $username);
+		return $this->db->get('login');
+	}
 	
 }

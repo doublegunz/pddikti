@@ -19,33 +19,53 @@ class Login extends CI_Controller {
 	function cek_login()
 	{
 		$username = $this->input->post('username');
-		$password = md5($this->input->post('password'));		
-		$ex['i'] = $this->login_model->cek_data($username,$password);
-		$r = $ex['i']->row();
-		// PERIKSA Hak Akses //
-		if($r == 1)
+		$password = $this->input->post('password');
+		
+		$user = $this->login_model
+			->get_user($username)
+			->row();
+
+		if($user)
 		{
-			$hak_akses = $this->login_model->cek_hak_akses($username)->row();
-			if ($hak_akses->hak_akses == 'admin')
-			{
-				 $adm = array(
-							'username'=>$r->username,
-							'password'=>$r->userpassword);
-				 $this->session->set_userdata($adm);	
-				 $data['username'] = $session_data['username'];
+			if (password_verify($password, $user->userpassword)) {
+				
+				$get_hak_akses = $this->login_model->cek_hak_akses($username)->row();
+				
+				if ($get_hak_akses->hak_akses == 'admin')
+				{
+					$session_data = [
+						'user_id' => $user->id,
+						'username' => $user->username,
+						'email' => $user->useremail,
+						'role' => $get_hak_akses->hak_akses,
+						'is_logged_in' => true
+					];
 
-			 redirect('admin_controller');	
-			}
-			else if ($hak_akses->hak_akses == 'user')
-			{
-				 $user = array(
-							'user'=>$r->username,
-							'pass'=>$r->userpassword);
-				 $this->session->set_userdata($user);	
-				 $data['user'] = $session_data['user'];
+					$this->session->set_userdata($session_data);
 
-			 redirect('user_controller');	
+					redirect('admin_controller');
+				}
+				else if ($get_hak_akses->hak_akses == 'user')
+				{
+					$session_data = [
+						'user_id' => $user->id,
+						'user' => $user->username,
+						'email' => $user->useremail,
+						'role' => $get_hak_akses->hak_akses,
+						'is_logged_in' => true
+					];
+
+					$this->session->set_userdata($session_data);	
+					
+					redirect('user_controller');	
+				}
+			} else {
+
+				$this->index();
+				echo "<div class='warning' align='center'>
+				<strong>Perhatian!</strong> Username atau Password anda salah. Silakan masukkan Username dan password yang benar!</div>";
 			}
+
 			
 		}
 		else
@@ -110,5 +130,10 @@ class Login extends CI_Controller {
 			
 			$this->load->view('home/berhasil');
 		}
+	}
+
+	public function forbidden_access()
+	{
+		$this->load->view('errors/forbidden_access');
 	}
 }
