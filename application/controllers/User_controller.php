@@ -14,10 +14,13 @@ class User_controller extends CI_Controller {
 	
 	function cek_session()
 	{
-		if($this->session->userdata('user') == NULL)
-		{ 
-			redirect('home');
-		}		
+        if ($this->session->userdata('is_logged_in') == null) {
+            redirect('login');
+        }
+		
+		if ($this->session->userdata('role') != 'user') {
+			redirect('login/forbidden_access');
+		}
 	}
 	
 	function index() 

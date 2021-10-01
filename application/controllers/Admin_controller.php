@@ -14,10 +14,14 @@ class Admin_controller extends CI_Controller {
 	
 	function cek_session()
 	{
-		if($this->session->userdata('username') == NULL)
+		if($this->session->userdata('is_logged_in') == NULL)
 		{ 
 			redirect('login');
-		}		
+		}
+
+		if ($this->session->userdata('role') != 'admin') {
+			redirect('login/forbidden_access');
+		}
 	}
 	
 	function index() {
