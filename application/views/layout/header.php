@@ -24,7 +24,11 @@
 <body>
 <div id="wrapper">
  <header>
-    	<div id="logo"><a href="<?php echo base_url(); ?>"><img src="<?php echo base_url(); ?>assets/images/pdpt.png" width="400" height="400"></a></div>
+    	<div id="logo">
+			<a href="<?php echo site_url(); ?>">
+				<img src="<?php echo base_url('assets/images/pdpt.png'); ?>" width="400" height="400">
+			</a>
+		</div>
         <div id="nama"><span class="nama">PDPT</span><br>
         <span class="aipni">Pangkalan Data Pendidikan Tinggi</span>
 		</div>
@@ -32,10 +36,10 @@
 
 <nav>
   	<ul>
-    	<li><a href="<?php echo base_url(); ?>">Beranda</a></li>
-        <li><a href="<?php echo base_url(); ?>index.php/home/pendaftaran">Pendaftaran</a></li>
-		<li><a href="<?php echo base_url(); ?>index.php/home/pencarian">Pencarian Data</a></li>
-        <li><a href="<?php echo site_url();?>/home/download">Download Dokumen</a></li>
-		<li><a href="<?php echo site_url(); ?>/login">Login</a></li>
+    	<li><a href="<?php echo site_url(); ?>">Beranda</a></li>
+        <li><a href="<?php echo site_url('register'); ?>">Pendaftaran</a></li>
+		<li><a href="<?php echo site_url('home/pencarian'); ?>">Pencarian Data</a></li>
+        <li><a href="<?php echo site_url('home/download');?>">Download Dokumen</a></li>
+		<li><a href="<?php echo site_url('login'); ?>">Login</a></li>
     </ul>
   </nav>
