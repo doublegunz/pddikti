@@ -6,112 +6,136 @@ class Home extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('pdpt_model');
+        $this->load->model('Berita_model', 'berita');
         $this->load->library('pagination');
         $this->load->helper('download');
+        $this->load->model('Mahasiswa_model', 'mahasiswa');
     }
     
     public function index()
     {
-        $jumlah= $this->pdpt_model->jumlah_berita();
+        $berita = $this->get_paginate_berita();
+        
+        $data = [
+            'title' => 'PDPT - Pangkalan Data Pendidikan Tinggi',
+            'berita'=> $berita,
+            'isi' => 'home/index_home'
+        ];
+                        
+        $this->load->view('layout/wrapper', $data);
+    }
 
-        $config['base_url'] = base_url().'index.php/home/index/';
-        $config['total_rows'] = $jumlah;
-        $config['per_page'] = 5;
+    private function get_paginate_berita()
+    {
+        $total_row = $this->berita->get_all()->num_rows();
+        $base_url = site_url('home/index');
+        $per_page = 5;
+
+        $config = $this->set_pagination_config($base_url, $total_row, $per_page);
+        $berita = $this->berita->paginate($per_page, $this->uri->segment('3'));
+        $this->pagination->initialize($config);
+
+        return $berita;
+    }
+
+    private function set_pagination_config($base_url, $total_row, $per_page)
+    {
+        $config['base_url'] = $base_url;
+        $config['total_rows'] = $total_row;
+        $config['per_page'] = $per_page;
         $config['first_link'] = 'First';
         $config['last_link'] = 'Last';
         $config['next_link'] = 'Next ';
         $config['prev_link'] = 'Previous ';
         $config['attributes'] = array('class' => 'pagination');
-        
-        $dari = $this->uri->segment('3');
-        
-        $data=array('title'		=>'PDPT - Pangkalan Data Pendidikan Tinggi',
-                    'berita'	=> $this->pdpt_model->berita_home($config['per_page'], $dari),
-                    'isi'  		=>'home/index_home'
-                        );
-                        
-        $this->pagination->initialize($config);
-        $this->load->view('layout/wrapper', $data);
+
+        return $config;
     }
     
     // Read berita
     public function read($read)
     {
-        $data['berita'] = $this->pdpt_model->read_berita();
-        $data['detail']	= $this->pdpt_model->read_berita($read);
-        $data=array('title'		=>$data['detail']['judul'],
-                    'berita'	=> $this->pdpt_model->read_berita(),
-                    'detail' 	=> $this->pdpt_model->read_berita($read),
-                    'isi'  		=>'home/read_view'
-                        );
+        $berita_terbaru = $this->berita->get_five_latest();
+        $berita	= $this->berita->get_by_slug($read);
+
+        $data = [
+            'title' => $berita['judul'],
+            'berita_terbaru' => $berita_terbaru,
+            'berita' => $berita,
+            'isi' => 'home/read_view'
+        ];
+
         $this->load->view('layout/wrapper', $data);
     }
 
     public function pencarian()
     {
-        $data=array('title'		=>'Pencarian Data',
-                    'isi'  		=>'home/pencarian'
-                        );
+        $data = [
+            'title' => 'Pencarian Data',
+            'isi' => 'home/pencarian'
+        ];
+
         $this->load->view('layout/wrapper', $data);
     }
     
     public function cari()
     {
-        if (isset($_POST['search'])) {
-            $data['ringkasan'] = $this->input->post('cari');
-            // set session userdata untuk pencarian, untuk paging pencarian
-            $this->session->set_userdata('sess_ringkasan', $data['ringkasan']);
-        } else {
-            $data['ringkasan'] = $this->session->userdata('sess_ringkasan');
-        }
-        
-        $this->db->like('nama_mahasiswa', $data['ringkasan']);
-        $this->db->or_like('npm', $data['ringkasan']);
-        $this->db->from('data_mhs');
-                
-        // pagination limit
-        $pagination['base_url'] = base_url().'index.php/home/cari/';
-        $pagination['total_rows'] =  $this->db->count_all_results();
-        $pagination['per_page'] = "10";
-        $pagination['uri_segment'] = 3;
-        $pagination['num_links'] = 5;
-        $pagination['first_link'] = 'First';
-        $pagination['last_link'] = 'Last';
-        $pagination['next_link'] = 'Next ';
-        $pagination['prev_link'] = 'Previous ';
+        $search_result = $this->get_search_result();
 
-        $this->pagination->initialize($pagination);
-
-        $data['hasil_pencarian'] = $this->pdpt_model->cari_data($pagination['per_page'], $this->uri->segment(3, 0), $data['ringkasan']);
-                
-        $this->load->vars($data);
-        $data=array('title'=>'Pencarian Data Mahasiswa - Pangkalan Data Pendidikan Tinggi',
-                            'isi'  =>'home/hasil_pencarian',
-                            'jumlah_data'  => $pagination['total_rows'],
-                            'kata_kunci'  => $data['ringkasan']
-                            
-                        );
+        $data = [
+            'title' => 'Pencarian Data Mahasiswa - Pangkalan Data Pendidikan Tinggi',
+            'isi'  => 'home/hasil_pencarian',
+            'jumlah_data'  => $search_result['total_row'],
+            'kata_kunci'  => $search_result['keyword'],
+            'hasil_pencarian' => $search_result['result']
+        ];
         
         $this->load->view('layout/wrapper', $data);
+    }
+
+    private function get_search_result()
+    {
+        if (isset($_POST['search'])) {
+            $keyword = $this->input->post('cari');
+            $this->session->set_userdata('search_keyword', $keyword);
+        } else {
+            $keyword = $this->session->userdata('search_keyword');
+        }
+
+        $total_row = $this->mahasiswa->search($keyword)->num_rows();
+        $base_url = site_url('home/cari');
+        $per_page = 10;
+        $config = $this->set_pagination_config($base_url, $total_row, $per_page);
+        $search_result = $this->mahasiswa->search($keyword, $per_page, $this->uri->segment(3))
+            ->result_array();
+
+        $this->pagination->initialize($config);
+
+        return [
+            'keyword' => $keyword,
+            'total_row' => $total_row,
+            'result' => $search_result
+        ];
     }
     
     public function details($npm)
     {
-        $data=array('title'=>'Pencarian Data Mahasiswa - Pangkalan Data Pendidikan Tinggi',
-                    'data_mahasiswa'  =>$this->pdpt_model->get_data($npm),
-                    'data_foto'  =>$this->pdpt_model->get_data_foto($npm),
-                    'isi'  =>'home/detail_mahasiswa'
-                        );
+        $data = [
+            'title' => 'Pencarian Data Mahasiswa - Pangkalan Data Pendidikan Tinggi',
+            'data_mahasiswa'  => $this->mahasiswa->get_by_npm($npm),
+            'data_foto'  => $this->mahasiswa->get_foto_by_npm($npm),
+            'isi'  => 'home/detail_mahasiswa'
+        ];
     
         $this->load->view('layout/wrapper', $data);
     }
     
     public function download()
     {
-        $data=array('title'=>'Download Dokumen PDPT - Pangkalan Data Pendidikan Tinggi',
-                    'isi'  =>'home/download_view'
-                        );
+        $data = [
+            'title' => 'Download Dokumen PDPT - Pangkalan Data Pendidikan Tinggi',
+            'isi'  => 'home/download_view'
+        ];
     
         $this->load->view('layout/wrapper', $data);
     }
