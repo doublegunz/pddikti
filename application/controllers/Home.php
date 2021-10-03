@@ -50,7 +50,6 @@ class Home extends CI_Controller
         $config['attributes'] = array('class' => 'pagination');
 
         return $config;
-
     }
     
     // Read berita
@@ -133,9 +132,10 @@ class Home extends CI_Controller
     
     public function download()
     {
-        $data=array('title'=>'Download Dokumen PDPT - Pangkalan Data Pendidikan Tinggi',
-                    'isi'  =>'home/download_view'
-                        );
+        $data = [
+            'title' => 'Download Dokumen PDPT - Pangkalan Data Pendidikan Tinggi',
+            'isi'  => 'home/download_view'
+        ];
     
         $this->load->view('layout/wrapper', $data);
     }
