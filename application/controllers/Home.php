@@ -6,45 +6,66 @@ class Home extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('pdpt_model');
+        $this->load->model('Berita_model', 'berita');
         $this->load->library('pagination');
         $this->load->helper('download');
+        $this->load->model('pdpt_model');
     }
     
     public function index()
     {
-        $jumlah= $this->pdpt_model->jumlah_berita();
+        $berita = $this->get_paginate_berita();
+        
+        $data = [
+            'title' => 'PDPT - Pangkalan Data Pendidikan Tinggi',
+            'berita'=> $berita,
+            'isi' => 'home/index_home'
+        ];
+                        
+        $this->load->view('layout/wrapper', $data);
+    }
 
-        $config['base_url'] = base_url().'index.php/home/index/';
-        $config['total_rows'] = $jumlah;
-        $config['per_page'] = 5;
+    private function get_paginate_berita()
+    {
+        $total_row = $this->berita->get_all()->num_rows();
+        $base_url = site_url('home/index');
+        $per_page = 5;
+
+        $config = $this->set_pagination_config($base_url, $total_row, $per_page);
+        $berita = $this->berita->paginate($per_page, $this->uri->segment('3'));
+        $this->pagination->initialize($config);
+
+        return $berita;
+    }
+
+    private function set_pagination_config($base_url, $total_row, $per_page)
+    {
+        $config['base_url'] = $base_url;
+        $config['total_rows'] = $total_row;
+        $config['per_page'] = $per_page;
         $config['first_link'] = 'First';
         $config['last_link'] = 'Last';
         $config['next_link'] = 'Next ';
         $config['prev_link'] = 'Previous ';
         $config['attributes'] = array('class' => 'pagination');
-        
-        $dari = $this->uri->segment('3');
-        
-        $data=array('title'		=>'PDPT - Pangkalan Data Pendidikan Tinggi',
-                    'berita'	=> $this->pdpt_model->berita_home($config['per_page'], $dari),
-                    'isi'  		=>'home/index_home'
-                        );
-                        
-        $this->pagination->initialize($config);
-        $this->load->view('layout/wrapper', $data);
+
+        return $config;
+
     }
     
     // Read berita
     public function read($read)
     {
-        $data['berita'] = $this->pdpt_model->read_berita();
-        $data['detail']	= $this->pdpt_model->read_berita($read);
-        $data=array('title'		=>$data['detail']['judul'],
-                    'berita'	=> $this->pdpt_model->read_berita(),
-                    'detail' 	=> $this->pdpt_model->read_berita($read),
-                    'isi'  		=>'home/read_view'
-                        );
+        $berita_terbaru = $this->berita->get_five_latest();
+        $berita	= $this->berita->get_by_slug($read);
+
+        $data = [
+            'title' => $berita['judul'],
+            'berita_terbaru' => $berita_terbaru,
+            'berita' => $berita,
+            'isi' => 'home/read_view'
+        ];
+
         $this->load->view('layout/wrapper', $data);
     }
 
@@ -73,7 +94,7 @@ class Home extends CI_Controller
         // pagination limit
         $pagination['base_url'] = base_url().'index.php/home/cari/';
         $pagination['total_rows'] =  $this->db->count_all_results();
-        $pagination['per_page'] = "10";
+        $pagination['per_page'] = 10;
         $pagination['uri_segment'] = 3;
         $pagination['num_links'] = 5;
         $pagination['first_link'] = 'First';
