@@ -29,4 +29,16 @@ class Mahasiswa_model extends CI_Model
         $this->db->limit($limit, $offset);
         return $this->db->get_all()->result_array();
     }
+
+    public function get_by_npm($npm)
+    {
+        $this->db->where('npm', $npm);
+        return $this->get_all()->row_array();
+    }
+
+    public function get_foto_by_npm($npm)
+    {
+        $this->db->where('npm', $npm);
+        return $this->db->get('data_foto')->row_array();
+    }
 }

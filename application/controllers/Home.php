@@ -121,11 +121,12 @@ class Home extends CI_Controller
     
     public function details($npm)
     {
-        $data=array('title'=>'Pencarian Data Mahasiswa - Pangkalan Data Pendidikan Tinggi',
-                    'data_mahasiswa'  =>$this->pdpt_model->get_data($npm),
-                    'data_foto'  =>$this->pdpt_model->get_data_foto($npm),
-                    'isi'  =>'home/detail_mahasiswa'
-                        );
+        $data = [
+            'title' => 'Pencarian Data Mahasiswa - Pangkalan Data Pendidikan Tinggi',
+            'data_mahasiswa'  => $this->mahasiswa->get_by_npm($npm),
+            'data_foto'  => $this->mahasiswa->get_foto_by_npm($npm),
+            'isi'  => 'home/detail_mahasiswa'
+        ];
     
         $this->load->view('layout/wrapper', $data);
     }
