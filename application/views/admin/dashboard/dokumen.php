@@ -3,7 +3,7 @@
 	<h1>Data Dokumen</h1>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="myform">
 	<!-- start: Data Lampiran -->
-	<?php echo form_open_multipart('dokumen/unggah_dokumen'); ?>
+	<?php echo form_open_multipart('dokumen/upload'); ?>
 	<tr>
 		<td><label for="nama_dokumen">Nama Dokumen</label>
 			<input type="text" name="nama_dokumen" required size="40">

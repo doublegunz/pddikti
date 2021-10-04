@@ -446,3 +446,5 @@ ALTER TABLE `login`
 ALTER TABLE `login` CHANGE `userpassword` `userpassword` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
 
 UPDATE `login` SET `userpassword` = '$2y$10$ycK2cLVBDyhhkUK2Ew1ZKOwCLx9gaY3UVMUwi/42tOB2gyxErLPTy' WHERE `login`.`id` = 1;
+
+ALTER TABLE `dokumen`  ADD `upload_path` VARCHAR(255) NOT NULL  AFTER `nama_dokumen`;
